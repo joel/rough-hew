@@ -13,7 +13,13 @@ guard 'rails' do
 end
 
 
-guard 'rspec' do
+guard 'rspec',
+  :cli => "--color --fail-fast", # pass arbitrary RSpec CLI arguments, default: "-f progress"
+  :bundler => true,           # don't use "bundle exec" to run the RSpec command, default: true
+  :notification => true,      # don't display Growl (or Libnotify) notification after the specs are done running, default: true
+  :all_after_pass => true,    # don't run all specs after changed specs pass, default: true
+  :all_on_start => true,      # don't run all the specs at startup, default: true
+  :keep_failed => false  do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
   watch('spec/spec_helper.rb')  { "spec" }

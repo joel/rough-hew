@@ -17,4 +17,21 @@ describe Post do
       it { expect { build_stubbed(:post) }.to_not raise_error }
     end
   end
+
+  context 'legacy behavior' do
+    before { subject.comment = 'legacy comment' }
+    its(:comment) { should eql 'legacy comment' }
+    it { subject.comments.size.should eql 1 }
+    context 'update' do
+      let(:post) { build :post, comment: 'legacy comment' }
+      before { subject.comment = 'new legacy comment' }
+      its(:comment) { should eql 'new legacy comment' }
+      it { subject.comments.size.should eql 1 }
+    end
+  end
+
+  context 'new behavior' do
+    let(:post) { build :post, :with_comments }
+    it { subject.comments.size.should eql 3 }
+  end
 end
