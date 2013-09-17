@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :post do
-    title "MyString"
-    content "MyText"
-    comment "MyText"
+    title { generate(:post_title) }
+    sequence(:content) { |n| "content-#{n}-#{rand(1000)}"}
+    sequence(:comment) { |n| "comment-#{n}-#{rand(1000)}"}
   end
 end
