@@ -8,16 +8,17 @@ FactoryGirl.define do
     end
 
     title { generate(:post_title) }
+
     sequence(:content) { |n| "content-#{n}-#{rand(1000)}"}
 
     after(:build) do |post, evaluator|
-      post.comments.new attributes_for(:comment).merge!(content: evaluator.comment)
+      post.comments << build(:comment, content: evaluator.comment, post: post)
     end
 
     trait :with_comments do
       after(:build) do |post, evaluator|
         2.times do
-          post.comments.new attributes_for(:comment)
+          post.comments << build(:comment, post: post)
         end
       end
     end
