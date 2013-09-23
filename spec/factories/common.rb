@@ -5,4 +5,7 @@ FactoryGirl.define do
   sequence :comment do |n|
     "comment_content-#{n}-#{rand(1000)}"
   end
+  sequence :category_title do |n|
+    "category-#{n}-#{rand(1000)}"
+  end
 end
