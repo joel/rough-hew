@@ -9,8 +9,9 @@ FactoryGirl.define do
 
     title { generate(:post_title) }
 
-    sequence(:content) { |n| "content-#{n}-#{rand(1000)}"}
+    sequence(:content) { |n| "post_content-#{n}-#{rand(1000)}"}
 
+    # Becareful with default association on build, you probably want a naked build, here it will never possible :/
     after(:build) do |post, evaluator|
       post.comments << build(:comment, content: evaluator.comment, post: post)
     end
@@ -18,7 +19,7 @@ FactoryGirl.define do
     trait :with_comments do
       after(:build) do |post, evaluator|
         2.times do
-          post.comments << build(:comment, post: post)
+          post.comments << build(:comment, content: evaluator.comment, post: post)
         end
       end
     end

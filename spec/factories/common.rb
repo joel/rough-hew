@@ -3,6 +3,6 @@ FactoryGirl.define do
     "title-#{n}-#{rand(10000 * n)}"
   end
   sequence :comment do |n|
-    "comment-#{n}-#{rand(1000)}"
+    "comment_content-#{n}-#{rand(1000)}"
   end
 end
