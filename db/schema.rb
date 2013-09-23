@@ -11,12 +11,31 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130917152247) do
+ActiveRecord::Schema.define(:version => 20130923092703) do
+
+  create_table "categories", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "categories_comments", :id => false, :force => true do |t|
+    t.integer "category_id"
+    t.integer "comment_id"
+  end
+
+  add_index "categories_comments", ["category_id", "comment_id"], :name => "index_categories_comments_on_category_id_and_comment_id"
+
+  create_table "comments", :force => true do |t|
+    t.integer  "post_id"
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "posts", :force => true do |t|
     t.string   "title"
     t.text     "content"
-    t.text     "comment"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
