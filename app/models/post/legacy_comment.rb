@@ -3,6 +3,7 @@ module Post::LegacyComment
 
   included do
     attr_accessible :comment
+    scope :with_comment, -> { joins(:comments).select('posts.*, comments.content as comment') }
   end
 
   def comment
